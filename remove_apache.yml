@@ -1,0 +1,19 @@
+---
+- hosts: all #all hosts will be effected, it like "ansible all"
+  become: true #
+  tasks:
+
+    #removed update repo index - for package removal is not necessary
+    #  - name: update repository index 
+    #    apt: 
+    #      update_cache: yes
+
+  - name: install apache2 package   #doesnt matter what you put here
+    apt:    #module that i want to use
+      name: apache2
+      state: absent #zmena z latest na absent
+
+  - name: add php support for apache
+    apt:
+      name: libapache2-mod-php
+      state: absent #zmena z latest na absent
