@@ -1,0 +1,18 @@
+---
+
+ - hosts: all
+   become: true
+   tags: allways  
+   tasks:
+
+     - name: User exists?
+       command: id testing-user
+       ignore_errors: yes
+       register: user_exist
+     - name: delete user
+       user:
+         name: testing-user
+         state: absent
+       when: user_exist.rc == 0
+
+
