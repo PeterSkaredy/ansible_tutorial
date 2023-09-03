@@ -1,0 +1,11 @@
+- name: add ssh key for simone
+  authorized_key:
+    user: simone
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAe7/ofWLNBq3+fRn3UmgAizdicLs9vcS4Oj8VSOD1S/ ansible"
+
+- name: Check disk free space
+  shell: df -h
+  register: disk_space_result
+
+- debug: 
+    var: disk_space_result.stdout_lines
