@@ -19,16 +19,9 @@
   lineinfile:
     path: /etc/httpd/conf/httpd.conf
     regexp: '^ServerAdmin'
-    line: ServerAdmin somebody@somewhere.net
+    line: ServerAdmin somebody@somewhere.com
   when: ansible_distribution == "CentOS"
-  register: apache
-
-- name: restart httpd 
-  tags: apache,httpd
-  service:
-    name: "{{ apache_service }}"
-    state: restarted
-  when: apache.changed #premennu registruješ o stať vyššie
+  notify: restart_apache #call playbook - roles/web_servers/tasks/main.yml
 
 - name: copy html file for site
   tags: apache,apache2,httpd
